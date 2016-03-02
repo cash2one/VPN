@@ -54,10 +54,10 @@ class WeiXin:
 
 	def change_pass(self,my_ip,password,msg_id):
 		#修改密码
-		f = open('chap-secrets.txt', 'r+')
+		f = open('/etc/ppp/chap-secrets', 'r+')
 		flist = f.readlines()
 		flist[2] = 'jdvpn pptpd %s * \n ' % password
-		f = open('chap-secrets.txt', 'w+')
+		f = open('/etc/ppp/chap-secrets', 'w+')
 		f.writelines(flist)
 		url_fodder = "https://mp.weixin.qq.com/cgi-bin/operate_appmsg?t=ajax-response&sub=update&type=10&token=%s&lang=zh_CN" % self.token
 		fod_headers = {
@@ -96,10 +96,10 @@ class WeiXin:
 		err_msg = re.findall("\"err_msg\":\"(.*?)\"",r_fod.content)[0]
 		if  err_msg == 'ok':
 			print "Password is %s" % password
-			f = open('chap-secrets.txt', 'r+')
+			f = open('/etc/ppp/chap-secrets', 'r+')
 			flist = f.readlines()
 			flist[3] = 'jdvpn pptpd %s * \n' % password
-			f = open('chap-secrets.txt', 'w+')
+			f = open('/etc/ppp/chap-secrets', 'w+')
 			f.writelines(flist)
 
 		else :
