@@ -7,7 +7,7 @@ wget https://raw.githubusercontent.com/zhengxujiang/Code/master/auto.py
 python auto.py
 
 cat > crontabfile << END
-* * * * * python auto.py
+* 13 * * * python auto.py
 END
 
 crontab crontabfile
