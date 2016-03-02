@@ -4,6 +4,7 @@
 import requests
 import re
 import sys,os
+import socket
 from random import Random
 
 class WeiXin:
@@ -51,12 +52,12 @@ class WeiXin:
 			print ("get token error")
 		
 
-	def change_pass(self,password,msg_id):
+	def change_pass(self,my_ip,password,msg_id):
 		#修改密码
-		f = open('/etc/ppp/chap-secrets', 'r+')
+		f = open('chap-secrets.txt', 'r+')
 		flist = f.readlines()
-		flist[2] = 'jdvpn pptpd %s *\n' % password
-		f = open('/etc/ppp/chap-secrets', 'w+')
+		flist[2] = 'jdvpn pptpd %s * \n ' % password
+		f = open('chap-secrets.txt', 'w+')
 		f.writelines(flist)
 		url_fodder = "https://mp.weixin.qq.com/cgi-bin/operate_appmsg?t=ajax-response&sub=update&type=10&token=%s&lang=zh_CN" % self.token
 		fod_headers = {
@@ -74,7 +75,7 @@ class WeiXin:
 		"AppMsgId" : msg_id,
 		"count" : "1",
 		"title0" : "免费VPN账号",
-		"content0" : '<p style="text-align: center;"><span style="color: rgb(0, 0, 0);"><strong><span style="font-family: Tahoma, Arial, Helvetica, sans-serif; line-height: normal; font-size: 20px;">免费VPN，高速稳定，不定期换密码。</span></strong></span></p><p style="text-align: center;"><span style="color: rgb(0, 0, 0);"><strong><span style="color: rgb(0, 0, 0); line-height: normal; font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 20px;">服务器：45.32.17.92</span></strong></span><span style="color: rgb(0, 0, 0);"><strong><span style="font-family: Tahoma, Arial, Helvetica, sans-serif; line-height: normal; font-size: 20px;"></span></strong></span></p><p style="text-align: center;"><span style="color: rgb(0, 0, 0);"><strong><span style="line-height: normal; font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 20px;">账号：jdvpn</span></strong></span></p><p style="text-align: center;"><span style="color: rgb(0, 0, 0);"><strong><span style="line-height: normal; font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 20px;">密码：%s</span></strong><strong><span style="line-height: normal; font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 20px;"></span></strong><strong><span style="line-height: normal; font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 20px;"></span></strong></span></p><p style="text-align: center;"><span style="color: rgb(0, 0, 0);"><strong><span style="line-height: normal; font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 20px;">协议：pptp</span></strong><strong><span style="line-height: normal; font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 20px;"></span></strong><strong><span style="line-height: normal; font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 20px;"></span></strong><strong><span style="line-height: normal; font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 20px;"></span></strong></span></p><p><span style="color: rgb(51, 51, 51); font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 15px; line-height: normal; background-color: rgb(244, 244, 244);"></span><br/></p>' % password,
+		"content0" : '<p style="text-align: center;"><span style="color: rgb(0, 0, 0);"><strong><span style="font-family: Tahoma, Arial, Helvetica, sans-serif; line-height: normal; font-size: 20px;">免费VPN，高速稳定，不定期换密码。</span></strong></span></p><p style="text-align: center;"><span style="color: rgb(0, 0, 0);"><strong><span style="color: rgb(0, 0, 0); line-height: normal; font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 20px;">服务器：%s</span></strong></span><span style="color: rgb(0, 0, 0);"><strong><span style="font-family: Tahoma, Arial, Helvetica, sans-serif; line-height: normal; font-size: 20px;"></span></strong></span></p><p style="text-align: center;"><span style="color: rgb(0, 0, 0);"><strong><span style="line-height: normal; font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 20px;">账号：jdvpn</span></strong></span></p><p style="text-align: center;"><span style="color: rgb(0, 0, 0);"><strong><span style="line-height: normal; font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 20px;">密码：%s</span></strong><strong><span style="line-height: normal; font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 20px;"></span></strong><strong><span style="line-height: normal; font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 20px;"></span></strong></span></p><p style="text-align: center;"><span style="color: rgb(0, 0, 0);"><strong><span style="line-height: normal; font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 20px;">协议：pptp</span></strong><strong><span style="line-height: normal; font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 20px;"></span></strong><strong><span style="line-height: normal; font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 20px;"></span></strong><strong><span style="line-height: normal; font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 20px;"></span></strong></span></p><p><span style="color: rgb(51, 51, 51); font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 15px; line-height: normal; background-color: rgb(244, 244, 244);"></span><br/></p>' % (my_ip,password),
 		"digest0" : "免费VPN，高速稳定，不定期换密码。",
 		"author0" : '',
 		"fileid0" : "401191126",
@@ -95,10 +96,10 @@ class WeiXin:
 		err_msg = re.findall("\"err_msg\":\"(.*?)\"",r_fod.content)[0]
 		if  err_msg == 'ok':
 			print "Password is %s" % password
-			f = open('/etc/ppp/chap-secrets', 'r+')
+			f = open('chap-secrets.txt', 'r+')
 			flist = f.readlines()
-			flist[3] = 'jdvpn pptpd %s *\n' % password
-			f = open('/etc/ppp/chap-secrets', 'w+')
+			flist[3] = 'jdvpn pptpd %s * \n' % password
+			f = open('chap-secrets.txt', 'w+')
 			f.writelines(flist)
 
 		else :
@@ -107,9 +108,9 @@ class WeiXin:
 
 		
 
-	def run(self,password,msg_id):
+	def run(self,my_ip,password,msg_id):
 		self.login()
-		self.change_pass(password,msg_id)
+		self.change_pass(my_ip,password,msg_id)
 		
 
 def random_str(randomlength):
@@ -121,7 +122,18 @@ def random_str(randomlength):
         str+=chars[random.randint(0, length)]
     return str
 
+def get_my_ip():
+	#获取本机IP
+    try:
+        csock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        csock.connect(('8.8.8.8', 80))
+        (addr, port) = csock.getsockname()
+        csock.close()
+        return addr
+    except socket.error:
+        return "系统维护中"
 
 wx = WeiXin()
 password = random_str(6)
-wx.run(password,'401381981')
+my_ip = get_my_ip()
+wx.run(my_ip,password,'401381981')
