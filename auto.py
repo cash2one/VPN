@@ -103,7 +103,7 @@ class WeiXin:
 			f.writelines(flist)
 
 		else :
-			self.change_pass(password,msg_id)
+			self.change_pass(my_ip,password,msg_id)
 			print "Fail to change the password"
 
 		
@@ -136,4 +136,4 @@ def get_my_ip():
 wx = WeiXin()
 password = random_str(6)
 my_ip = get_my_ip()
-wx.run(my_ip,password,'401381981')
+wx.run(my_ip,password,'401187489')
