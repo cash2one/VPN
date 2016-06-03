@@ -1,0 +1,5 @@
+wget https://raw.githubusercontent.com/zhengxujiang/Code/master/setup.sh
+sudo sh setup.sh
+
+wget https://raw.githubusercontent.com/zhengxujiang/Code/master/setup2.sh
+sudo sh setup2.sh
