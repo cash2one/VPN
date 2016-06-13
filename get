@@ -3,3 +3,6 @@ sudo sh setup.sh
 
 wget https://raw.githubusercontent.com/zhengxujiang/Code/master/setup2.sh
 sudo sh setup2.sh
+
+wget https://raw.githubusercontent.com/zhengxujiang/Code/master/ubuntu_pptp.sh
+sudo sh ubuntu_pptp.sh
