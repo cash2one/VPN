@@ -6,3 +6,7 @@ sudo sh setup2.sh
 
 wget https://raw.githubusercontent.com/zhengxujiang/Code/master/ubuntu_pptp.sh
 sudo sh ubuntu_pptp.sh
+
+wget https://raw.githubusercontent.com/zhengxujiang/VPN/master/l2tp.sh
+chmod +x l2tp.sh
+./l2tp.sh
