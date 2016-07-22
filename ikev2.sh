@@ -368,9 +368,10 @@ EOF
 function configure_secrets(){
 	cat > /usr/local/etc/ipsec.secrets<<-EOF
 : RSA server.pem
-: PSK "myPSKkey"
+: PSK "jdvpn"
 : XAUTH "myXAUTHPass"
-myUserName %any : EAP "myUserPass"
+zxj %any : EAP "11456354"
+test %any : EAP "test"
 	EOF
 }
 
