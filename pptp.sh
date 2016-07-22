@@ -1,7 +1,6 @@
 #! /bin/bash
 
-sudo apt-get install pptpd
-read inputA<<Y
+apt-get -y install pptpd
 
 sed -i '$a localip 10.10.0.1' /etc/pptpd.conf
 sed -i '$a remoteip 10.10.0.2-255' /etc/pptpd.conf
@@ -12,3 +11,5 @@ sed -i '$a zxj * zxj1234 *' /etc/ppp/chap-secrets
 
 sed -i '$a net.ipv4.ip_forward=1' /etc/sysctl.conf
 sudo sysctl -p
+
+service pptpd restart
