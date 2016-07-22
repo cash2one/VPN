@@ -165,9 +165,9 @@ function pre_install(){
 	echo -e "the ip(or domain) of your server: [\033[32;1m$vps_ip\033[0m]"
 	echo -e "the cert_info:[\033[32;1mC=${my_cert_c}, O=${my_cert_o}\033[0m]"
 	echo ""
-    echo "Press any key to start...or Press Ctrl+C to cancel"
-	char=`get_char`
-	#Current folder
+ #   echo "Press any key to start...or Press Ctrl+C to cancel"
+	# char=`get_char`
+	# #Current folder
     cur_dir=`pwd`
     cd $cur_dir
 }
