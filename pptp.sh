@@ -1,6 +1,7 @@
 #! /bin/bash
-sudo apt-get update
+
 sudo apt-get install pptpd
+read inputA<<Y
 
 sed -i '$a localip 10.10.0.1' /etc/pptpd.conf
 sed -i '$a remoteip 10.10.0.2-255' /etc/pptpd.conf
