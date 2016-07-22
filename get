@@ -10,3 +10,7 @@ sudo sh ubuntu_pptp.sh
 wget https://raw.githubusercontent.com/zhengxujiang/VPN/master/l2tp.sh
 chmod +x l2tp.sh
 ./l2tp.sh
+
+https://raw.githubusercontent.com/zhengxujiang/VPN/master/ikev2.sh
+chmod +x ikev2.sh
+bash ikev2.sh
