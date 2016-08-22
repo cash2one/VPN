@@ -137,3 +137,6 @@ wx = WeiXin()
 password = random_str(6)
 my_ip = get_my_ip()
 wx.run(my_ip,password,'401187489')
+wx.run(my_ip,password,'401187489')
+
+
