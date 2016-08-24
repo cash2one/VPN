@@ -1,1 +1,18 @@
-# Code
+# VPN安装步骤
+
+wget https://raw.githubusercontent.com/zhengxujiang/Code/master/setup.sh
+sudo sh setup.sh
+
+wget https://raw.githubusercontent.com/zhengxujiang/Code/master/setup2.sh
+sudo sh setup2.sh
+
+wget https://raw.githubusercontent.com/zhengxujiang/Code/master/ubuntu_pptp.sh
+sudo sh ubuntu_pptp.sh
+
+wget https://raw.githubusercontent.com/zhengxujiang/VPN/master/l2tp.sh
+chmod +x l2tp.sh
+./l2tp.sh
+
+wget https://raw.githubusercontent.com/zhengxujiang/VPN/master/ikev2.sh
+chmod +x ikev2.sh
+bash ikev2.sh
